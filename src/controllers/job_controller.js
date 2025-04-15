@@ -35,7 +35,6 @@ export const createPost = async (req, res, next) => {
       job: savedJob,
     });
   } catch (error) {
-    console.error("Error creating job post:", error);
     next(error);
   }
 };
@@ -51,7 +50,6 @@ export const getAllPosts = async (req, res, next) => {
             posts,
         });
     } catch (error) {
-        console.error("Error fetching job posts:", error);
         next(error);
     }
 }

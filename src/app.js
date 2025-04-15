@@ -14,7 +14,7 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-  origin: ["http://localhost:4200", "https://studyinbengaluru.com"],
+  origin: [ "https://talendforstartup-frontend-mp74.vercel.app", "http://localhost:3000"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
