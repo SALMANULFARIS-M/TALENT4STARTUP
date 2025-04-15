@@ -6,7 +6,6 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import jobRoutes from "./routes/jobsRoutes.js";
 
-
 dotenv.config();
 connectDB();
 
@@ -14,7 +13,7 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-  origin: [ "https://talendforstartup-frontend-mp74.vercel.app", "http://localhost:3000"],
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -26,12 +25,10 @@ app.use(express.urlencoded({ limit: "20mb", extended: true }));
 app.use(helmet());
 app.use(morgan("dev"));
 
-
 // Routes
-app.use('/jobs', jobRoutes);
+app.use("/jobs", jobRoutes);
 // app.use("/auth", authRoutes);
 // app.use('/users', userRoutes);
 // app.use('/admin', adminRoutes);
-
 
 export default app;
