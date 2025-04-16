@@ -7,12 +7,15 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER, // your email user (e.g., 'your-email@gmail.com')
     pass: process.env.EMAIL_PASS, // your email password or app password
   },
+  tls: {
+    rejectUnauthorized: false, // Allow self-signed certificates
+  },
 });
 
 // Function to send OTP email
 export const sendOtpEmail = async (to, otp, purpose) => {
   let subject, message;
-  
+
   if (purpose === "register") {
     subject = "Your OTP for Talent 4 Startup Registration";
     message = `

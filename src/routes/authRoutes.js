@@ -5,7 +5,7 @@ import {sendOtp,verifyOtp } from '../controllers/authController.js';
 const router = express.Router();
 
 router.post('/register', sendOtp);
-router.post('/login', verifyOtp);
+router.post('/verify-otp', verifyOtp);
 // router.post('/logout', logout);
 // router.get('/me', authMiddleware, getMe);
 
