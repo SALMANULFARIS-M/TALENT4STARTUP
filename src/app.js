@@ -5,7 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
 import jobRoutes from "./routes/jobsRoutes.js";
-
+import authRoutes from "./routes/authRoutes.js";
 dotenv.config();
 connectDB();
 
@@ -27,7 +27,7 @@ app.use(morgan("dev"));
 
 // Routes
 app.use("/jobs", jobRoutes);
-// app.use("/auth", authRoutes);
+app.use("/auth", authRoutes);
 // app.use('/users', userRoutes);
 // app.use('/admin', adminRoutes);
 

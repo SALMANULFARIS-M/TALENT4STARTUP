@@ -1,12 +1,12 @@
-// import express from 'express';
-// import { register, login, logout, getMe } from '../controllers/authController.js';
+import express from 'express';
+import {sendOtp,verifyOtp } from '../controllers/authController.js';
 // import authMiddleware from '../middlewares/authMiddleware.js';
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.post('/register', register);
-// router.post('/login', login);
+router.post('/register', sendOtp);
+router.post('/login', verifyOtp);
 // router.post('/logout', logout);
 // router.get('/me', authMiddleware, getMe);
 
-// module.exports = router;
+export default router;
