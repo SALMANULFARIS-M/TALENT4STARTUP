@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import jobRoutes from "./routes/jobRoutes.js";
+import jobsRoutes from "./routes/JobsRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
@@ -26,7 +26,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 // Routes
-app.use("/jobs", jobRoutes);
+app.use("/jobs", jobsRoutes);
 app.use("/auth", authRoutes);
 app.use('/users', userRoutes);
 // app.use('/admin', adminRoutes);
