@@ -13,6 +13,7 @@ router.post('/user-experience',   addUserExperience);
 router.put('/user-detail',  addUserDetails);
 router.put('/user-resume',  upload.single('resume'),  addUserResume);
 router.put('/user-experience',   addUserExperience);
+
 router.get('/:id', getUserById);
 
 // router.put('/:id',  updateUser);

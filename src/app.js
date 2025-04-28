@@ -3,13 +3,11 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import connectDB from "./config/db.js";
-import jobRoutes from "./routes/jobsRoutes.js";
+import jobRoutes from "./routes/JobsRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
