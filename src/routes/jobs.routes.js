@@ -3,7 +3,7 @@ import {
     getAllPosts,
     createPost,
     applyToJob,
-  } from '../controllers/job_controller.js';
+  } from '../controllers/job.controller.js';
 
 const router = express.Router();
 

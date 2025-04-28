@@ -1,5 +1,5 @@
 import express from 'express';
-import {sendOtp,verifyOtp } from '../controllers/authController.js';
+import {sendOtp,verifyOtp } from '../controllers/auth.controller.js';
 // import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();

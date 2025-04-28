@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllUsers,addUserDetails,addUserResume, addUserExperience,getUserById } from '../controllers/user_controller.js';
+import { getAllUsers,addUserDetails,addUserResume, addUserExperience,getUserById } from '../controllers/user.controller.js';
 import { upload } from "../middlewares/upload.js";
 // import authMiddleware from '../middlewares/authMiddleware.js';
 // import adminMiddleware from '../middlewares/adminMiddleware.js';
