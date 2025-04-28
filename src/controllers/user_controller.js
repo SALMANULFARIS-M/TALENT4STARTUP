@@ -69,10 +69,20 @@ export const addUserResume = async (req, res, next) => {
     // 2. Get GridFS bucket
     const bucket = getGridFSBucket();
 
-    // 3. Create unique filename with timestamp
+    // 3. Find existing user and delete old resume if it exists
+    const existingUser = await User.findById(userId);
+    if (existingUser?.resume?.filename) {
+      const files = await bucket.find({ filename: existingUser.resume.filename }).toArray();
+      if (files.length > 0) {
+        await bucket.delete(files[0]._id);
+        console.log(`Deleted old resume: ${existingUser.resume.filename}`);
+      }
+    }
+
+    // 4. Create unique filename with timestamp
     const filename = `resume_${userId}_${Date.now()}`;
 
-    // 4. Upload the file
+    // 5. Upload the new file to GridFS
     const uploadStream = bucket.openUploadStream(filename, {
       metadata: {
         userId,
@@ -81,7 +91,7 @@ export const addUserResume = async (req, res, next) => {
       },
     });
 
-    // 5. Handle the upload process
+    // 6. Handle the upload stream
     await new Promise((resolve, reject) => {
       uploadStream.end(req.file.buffer);
 
@@ -92,9 +102,8 @@ export const addUserResume = async (req, res, next) => {
       });
     });
 
-    // 6. Update user record (optional but recommended)
-    // Assuming you have a User model
-    const user = await User.findByIdAndUpdate(
+    // 7. Update user's resume info
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
         resume: {
@@ -106,12 +115,12 @@ export const addUserResume = async (req, res, next) => {
       { new: true }
     );
 
-    // 7. Send success response
+    // 8. Send response
     res.status(200).json({
       success: true,
       message: "Resume uploaded successfully",
       filename,
-      user,
+      user: updatedUser,
     });
   } catch (error) {
     next(error);
@@ -129,14 +138,21 @@ export const addUserExperience = async (req, res, next) => {
       });
     }
 
+    const { title, company, years } = req.body;
+    if (!title || !company || !years) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required fields",
+      });
+    }
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
         $set: {
           experience: {
-            title: "Senior Developer",
-            company: "Tech Solutions",
-            years: 7
+            title: title,
+            company: company,
+            years: years
           }
         }
       },
@@ -155,7 +171,6 @@ export const addUserExperience = async (req, res, next) => {
     next(error);
   }
 };
-
 
 export const getUserById = async (req, res, next) => {
   try {
