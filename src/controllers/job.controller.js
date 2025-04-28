@@ -15,10 +15,10 @@ export const createPost = async (req, res, next) => {
       area,
       pincode,
       streetAddress,
-      id,
+      userId,
     } = req.body;
     if (
-      !id ||
+      !userId ||
       !companyName ||
       !companyDescription ||
       !jobTitle ||
@@ -38,7 +38,7 @@ export const createPost = async (req, res, next) => {
     }
 
     const newJob = new Job({
-      recruiter: id,
+      recruiter: userId,
       companyName,
       companyDescription,
       jobTitle,
