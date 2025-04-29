@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllUsers,addUserDetails,addUserResume, addUserExperience,getUserById } from '../controllers/user.controller.js';
+import { getAllUsers,addUserDetails,addUserResume, addUserExperience,getUserById, updateUserProfile, updateJobPreferences } from '../controllers/user.controller.js';
 import { upload } from "../middlewares/upload.js";
 // import authMiddleware from '../middlewares/authMiddleware.js';
 // import adminMiddleware from '../middlewares/adminMiddleware.js';
@@ -13,6 +13,8 @@ router.post('/user-experience',   addUserExperience);
 router.put('/user-detail',  addUserDetails);
 router.put('/user-resume',  upload.single('resume'),  addUserResume);
 router.put('/user-experience',   addUserExperience);
+router.put('/user-profile',   updateUserProfile);
+router.put("/user-job-pref", updateJobPreferences);
 
 router.get('/:id', getUserById);
 

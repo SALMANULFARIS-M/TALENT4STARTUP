@@ -172,6 +172,124 @@ export const addUserExperience = async (req, res, next) => {
   }
 };
 
+export const updateUserProfile = async (req, res, next) => {
+  try {
+    const { userId, work, education, skill, cert, lang } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID is required",
+      });
+    }
+
+    if (!work || !education || !skill || !cert || !lang) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required fields",
+      });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          experience: {
+            title: work.title,
+            company: work.company,
+            duration: work.duration
+          },
+          education: {
+            degree: education.degree,
+            institution: education.institution,
+            year: education.year
+          },
+          skill: {
+            name: skill.name,
+            level: skill.level
+          },
+          cert: {
+            name: cert.name,
+            org: cert.org
+          },
+          lang: {
+            name: lang.name,
+            level: lang.level
+          }
+        }
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      updatedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateJobPreferences = async (req, res, next) => {
+  try {
+    const { userId, jobPref } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID is required",
+      });
+    }
+
+    if (!jobPref) {
+      return res.status(400).json({
+        success: false,
+        message: "Job preference fields are required",
+      });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          jobPref: {
+            jobTitle: jobPref.jobTitle,
+            minPay: jobPref.minPay,
+            jobTypes: jobPref.jobTypes,
+            workSchedule: jobPref.workSchedule,
+            relocation: jobPref.relocation
+          }
+        }
+      },
+      { new: true } // return the updated user document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Job preferences updated successfully",
+      updatedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 export const getUserById = async (req, res, next) => {
   try {
     const userId = req.params.id;
