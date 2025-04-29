@@ -50,7 +50,6 @@ export const addUserDetails = async (req, res, next) => {
 
 export const addUserResume = async (req, res, next) => {
   try {
-
     // 1. Validate required fields and file
     if (!req.file) {
       return res.status(400).json({
@@ -132,7 +131,7 @@ export const addUserResume = async (req, res, next) => {
 
 export const addUserExperience = async (req, res, next) => {
   try {
-    const { userId } = req.body;
+    const { userId, experiences } = req.body;
     if (!userId) {
       return res.status(400).json({
         success: false,
@@ -140,9 +139,6 @@ export const addUserExperience = async (req, res, next) => {
       });
     }
 
-    const { experiences } = req.body;
-    console.log(req.body);
-    
     if (!experiences.title || !experiences.company || !experiences.years) {
       return res.status(400).json({
         success: false,
@@ -326,7 +322,9 @@ export const getUserResume = async (req, res, next) => {
     // 1. Find the user
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
     // 2. Fallback: Try to find any resume uploaded by this user
@@ -339,7 +337,9 @@ export const getUserResume = async (req, res, next) => {
         .toArray();
 
       if (files.length === 0) {
-        return res.status(404).json({ success: false, message: "No resume found for this user" });
+        return res
+          .status(404)
+          .json({ success: false, message: "No resume found for this user" });
       }
 
       filename = files[0].filename;
@@ -348,7 +348,9 @@ export const getUserResume = async (req, res, next) => {
     // 3. Check if file exists
     const file = await bucket.find({ filename }).toArray();
     if (file.length === 0) {
-      return res.status(404).json({ success: false, message: "Resume file not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Resume file not found" });
     }
 
     // 4. Serve the PDF
@@ -359,4 +361,3 @@ export const getUserResume = async (req, res, next) => {
     next(err);
   }
 };
-
