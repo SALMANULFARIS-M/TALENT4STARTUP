@@ -131,7 +131,7 @@ export const addUserResume = async (req, res, next) => {
 
 export const addUserExperience = async (req, res, next) => {
   try {
-    const { userId, experiences } = req.body;
+    const { userId, title,company,years } = req.body;
     if (!userId) {
       return res.status(400).json({
         success: false,
@@ -139,7 +139,7 @@ export const addUserExperience = async (req, res, next) => {
       });
     }
 
-    if (!experiences.title || !experiences.company || !experiences.years) {
+    if (!title || !company || !years) {
       return res.status(400).json({
         success: false,
         message: "Missing required fields",
@@ -150,9 +150,9 @@ export const addUserExperience = async (req, res, next) => {
       {
         $set: {
           experience: {
-            title: experiences.title,
-            company: experiences.company,
-            years: experiences.years,
+            title: title,
+            company: company,
+            years:years,
           },
         },
       },
