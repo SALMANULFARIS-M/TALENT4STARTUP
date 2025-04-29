@@ -50,6 +50,7 @@ export const addUserDetails = async (req, res, next) => {
 
 export const addUserResume = async (req, res, next) => {
   try {
+
     // 1. Validate required fields and file
     if (!req.file) {
       return res.status(400).json({
@@ -140,6 +141,8 @@ export const addUserExperience = async (req, res, next) => {
     }
 
     const { title, company, years } = req.body;
+    console.log(req.body);
+    
     if (!title || !company || !years) {
       return res.status(400).json({
         success: false,

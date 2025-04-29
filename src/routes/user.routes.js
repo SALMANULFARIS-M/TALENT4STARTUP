@@ -24,7 +24,7 @@ router.put("/user-resume", upload.single("resume"), addUserResume);
 router.put("/user-experience", addUserExperience);
 router.put("/user-profile", updateUserProfile);
 router.put("/user-job-pref", updateJobPreferences);
-router.get("/resume/:userId", getUserResume);
+router.get("/resume/:userId", getUserResume); //window.open(`https://talent4startup.onrender.com/resume/${user._id}`, "_blank");
 router.get("/:userId", getUserById);
 
 // router.put('/:id',  updateUser);
