@@ -140,10 +140,10 @@ export const addUserExperience = async (req, res, next) => {
       });
     }
 
-    const { title, company, years } = req.body;
+    const { experiences } = req.body;
     console.log(req.body);
     
-    if (!title || !company || !years) {
+    if (!experiences.title || !experiences.company || !experiences.years) {
       return res.status(400).json({
         success: false,
         message: "Missing required fields",
@@ -154,9 +154,9 @@ export const addUserExperience = async (req, res, next) => {
       {
         $set: {
           experience: {
-            title: title,
-            company: company,
-            years: years,
+            title: experiences.title,
+            company: experiences.company,
+            years: experiences.years,
           },
         },
       },
