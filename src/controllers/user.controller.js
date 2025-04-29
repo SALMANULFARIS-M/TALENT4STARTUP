@@ -314,3 +314,46 @@ export const getAllUsers = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getUserResume = async (req, res, next) => {
+  try {
+    const bucket = getGridFSBucket();
+    const { userId } = req.params;
+
+    // 1. Find the user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    // 2. Fallback: Try to find any resume uploaded by this user
+    let filename = user.resume?.filename;
+
+    if (!filename) {
+      const files = await bucket
+        .find({ "metadata.userId": userId })
+        .sort({ "metadata.uploadedAt": -1 }) // latest file first
+        .toArray();
+
+      if (files.length === 0) {
+        return res.status(404).json({ success: false, message: "No resume found for this user" });
+      }
+
+      filename = files[0].filename;
+    }
+
+    // 3. Check if file exists
+    const file = await bucket.find({ filename }).toArray();
+    if (file.length === 0) {
+      return res.status(404).json({ success: false, message: "Resume file not found" });
+    }
+
+    // 4. Serve the PDF
+    res.set("Content-Type", "application/pdf");
+    const stream = bucket.openDownloadStreamByName(filename);
+    stream.pipe(res);
+  } catch (err) {
+    next(err);
+  }
+};
+

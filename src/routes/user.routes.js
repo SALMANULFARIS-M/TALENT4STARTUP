@@ -7,6 +7,7 @@ import {
   getUserById,
   updateUserProfile,
   updateJobPreferences,
+  getUserResume,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/upload.js";
 // import authMiddleware from '../middlewares/authMiddleware.js';
@@ -23,8 +24,8 @@ router.put("/user-resume", upload.single("resume"), addUserResume);
 router.put("/user-experience", addUserExperience);
 router.put("/user-profile", updateUserProfile);
 router.put("/user-job-pref", updateJobPreferences);
-
-router.get("/:id", getUserById);
+router.get("/resume/:userId", getUserResume);
+router.get("/:userId", getUserById);
 
 // router.put('/:id',  updateUser);
 // router.delete('/:id', adminMiddleware, deleteUser);
