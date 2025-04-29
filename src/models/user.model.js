@@ -46,14 +46,16 @@ const ExperienceSchema = new mongoose.Schema(
   },
   { _id: false }
 );
-const JobPrefSchema = new mongoose.Schema({
-  jobTitle: String,
-  minPay: String,
-  jobTypes: String,
-  workSchedule: String,
-  relocation: String
-}, { _id: false });
-
+const JobPrefSchema = new mongoose.Schema(
+  {
+    jobTitle: String,
+    minPay: String,
+    jobTypes: String,
+    workSchedule: String,
+    relocation: String,
+  },
+  { _id: false }
+);
 
 const ResumeSchema = new mongoose.Schema(
   {

@@ -1,17 +1,15 @@
-import express from 'express';
+import express from "express";
 import {
-    getAllPosts,
-    createPost,
-    applyToJob,
-  } from '../controllers/job.controller.js';
+  getAllPosts,
+  createPost,
+  applyToJob,
+} from "../controllers/job.controller.js";
 
 const router = express.Router();
 
-
-router.get('/', getAllPosts);
-router.post('/create',  createPost);
-router.post('/applys',  applyToJob);
-
+router.get("/", getAllPosts);
+router.post("/create", createPost);
+router.post("/applys", applyToJob);
 
 // router.get('/:id', getPostById);
 // router.put('/:id', authMiddleware, updatePost);

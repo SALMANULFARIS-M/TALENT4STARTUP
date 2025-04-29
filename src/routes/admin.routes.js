@@ -2,7 +2,7 @@
 // import {
 //     getAllUsers,
 //     deleteUser,
-//     deleteJob 
+//     deleteJob
 //   } from '../controllers/adminController.js';
 //   import adminMiddleware from '../middlewares/adminMiddleware.js';
 

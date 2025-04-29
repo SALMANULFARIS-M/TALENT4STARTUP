@@ -72,7 +72,9 @@ export const addUserResume = async (req, res, next) => {
     // 3. Find existing user and delete old resume if it exists
     const existingUser = await User.findById(userId);
     if (existingUser?.resume?.filename) {
-      const files = await bucket.find({ filename: existingUser.resume.filename }).toArray();
+      const files = await bucket
+        .find({ filename: existingUser.resume.filename })
+        .toArray();
       if (files.length > 0) {
         await bucket.delete(files[0]._id);
         console.log(`Deleted old resume: ${existingUser.resume.filename}`);
@@ -129,7 +131,6 @@ export const addUserResume = async (req, res, next) => {
 
 export const addUserExperience = async (req, res, next) => {
   try {
-
     const { userId } = req.body;
     if (!userId) {
       return res.status(400).json({
@@ -152,15 +153,13 @@ export const addUserExperience = async (req, res, next) => {
           experience: {
             title: title,
             company: company,
-            years: years
-          }
-        }
+            years: years,
+          },
+        },
       },
       { new: true } // returns the updated document
     );
 
-
-  
     // 7. Send success response
     res.status(200).json({
       success: true,
@@ -197,26 +196,26 @@ export const updateUserProfile = async (req, res, next) => {
           experience: {
             title: work.title,
             company: work.company,
-            duration: work.duration
+            duration: work.duration,
           },
           education: {
             degree: education.degree,
             institution: education.institution,
-            year: education.year
+            year: education.year,
           },
           skill: {
             name: skill.name,
-            level: skill.level
+            level: skill.level,
           },
           cert: {
             name: cert.name,
-            org: cert.org
+            org: cert.org,
           },
           lang: {
             name: lang.name,
-            level: lang.level
-          }
-        }
+            level: lang.level,
+          },
+        },
       },
       { new: true }
     );
@@ -265,9 +264,9 @@ export const updateJobPreferences = async (req, res, next) => {
             minPay: jobPref.minPay,
             jobTypes: jobPref.jobTypes,
             workSchedule: jobPref.workSchedule,
-            relocation: jobPref.relocation
-          }
-        }
+            relocation: jobPref.relocation,
+          },
+        },
       },
       { new: true } // return the updated user document
     );
@@ -288,7 +287,6 @@ export const updateJobPreferences = async (req, res, next) => {
     next(error);
   }
 };
-
 
 export const getUserById = async (req, res, next) => {
   try {

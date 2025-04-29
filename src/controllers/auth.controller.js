@@ -4,7 +4,8 @@ import { sendOtpEmail as mailSender } from "../utils/mailer.js";
 import jwt from "jsonwebtoken";
 
 // helper to generate a 6-digit OTP
-const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
+const generateOtp = () =>
+  Math.floor(100000 + Math.random() * 900000).toString();
 
 export const sendOtp = async (req, res, next) => {
   try {
@@ -27,7 +28,7 @@ export const sendOtp = async (req, res, next) => {
     await new Otp({ email, otp, purpose, expiresAt }).save();
 
     // Send OTP email
-    await mailSender(email, otp,purpose);
+    await mailSender(email, otp, purpose);
 
     return res.status(200).json({
       success: true,
@@ -37,9 +38,6 @@ export const sendOtp = async (req, res, next) => {
     next(error);
   }
 };
-
-  
-
 
 export const verifyOtp = async (req, res, next) => {
   try {
@@ -102,5 +100,3 @@ export const verifyOtp = async (req, res, next) => {
     next(error);
   }
 };
-
-  

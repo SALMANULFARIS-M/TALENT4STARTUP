@@ -76,11 +76,11 @@ export const getAllPosts = async (req, res, next) => {
   }
 };
 
-export const applyToJob = async (userId, jobId) => {
+export const applyToJob = async (req, res, next) => {
   try {
     const application = new Application({
-      user: userId,
-      job: jobId,
+      user: req.userId,
+      job: req.jobId,
       status: "Applied",
     });
     res.status(200).json({

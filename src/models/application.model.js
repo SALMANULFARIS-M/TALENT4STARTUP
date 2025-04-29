@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
 
-
-const ResumeSchema = new mongoose.Schema({
-  filename: String,
-  originalName: String,
-  uploadedAt: { type: Date, default: Date.now },
-}, { _id: false });
+const ResumeSchema = new mongoose.Schema(
+  {
+    filename: String,
+    originalName: String,
+    uploadedAt: { type: Date, default: Date.now },
+  },
+  { _id: false }
+);
 
 const ApplicationSchema = new mongoose.Schema(
   {

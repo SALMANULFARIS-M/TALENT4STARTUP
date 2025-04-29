@@ -28,7 +28,7 @@ app.use(morgan("dev"));
 // Routes
 app.use("/jobs", jobsRoutes);
 app.use("/auth", authRoutes);
-app.use('/users', userRoutes);
+app.use("/users", userRoutes);
 // app.use('/admin', adminRoutes);
 
 export default app;
