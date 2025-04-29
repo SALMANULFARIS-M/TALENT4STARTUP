@@ -289,7 +289,7 @@ export const updateJobPreferences = async (req, res, next) => {
 
 export const getUserById = async (req, res, next) => {
   try {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const user = await User.findById(userId);
     res.status(200).json({
       success: true,
