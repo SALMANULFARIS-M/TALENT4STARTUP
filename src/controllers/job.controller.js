@@ -78,17 +78,24 @@ export const getAllPosts = async (req, res, next) => {
 
 export const applyToJob = async (req, res, next) => {
   try {
+    if (!req.body.userId || !req.body.jobId) {
+      return res.status(400).json({
+        success: false,
+        message: "Required field is not provided",
+      });
+    }
     const application = new Application({
-      user: req.userId,
-      job: req.jobId,
+      user: req.body.userId,
+      job: req.body.jobId,
       status: "Applied",
     });
+
+    await application.save();
     res.status(200).json({
       success: true,
       message: "successfully applied",
       application,
     });
-    await application.save();
   } catch (error) {
     next(error);
   }
