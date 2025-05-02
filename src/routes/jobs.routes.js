@@ -3,6 +3,7 @@ import {
   getAllPosts,
   createPost,
   applyToJob,
+  getUserApplications,
 } from "../controllers/job.controller.js";
 
 const router = express.Router();
@@ -10,6 +11,8 @@ const router = express.Router();
 router.get("/", getAllPosts);
 router.post("/create", createPost);
 router.post("/applys", applyToJob);
+router.get("/application", getUserApplications);
+
 
 // router.get('/:id', getPostById);
 // router.put('/:id', authMiddleware, updatePost);

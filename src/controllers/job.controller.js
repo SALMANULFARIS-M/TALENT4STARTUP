@@ -100,3 +100,25 @@ export const applyToJob = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getUserApplications = async (req, res, next) => {
+  try {
+    if (req.params.userId === undefined) {
+      return res.status(400).json({
+        success: false,
+        message: "User id is not provided",
+      });
+    }
+    const userId = req.params.userId;
+    const applications = await Application.find({ user: userId }).populate(
+      "job"
+    );
+    res.status(200).json({
+      success: true,
+      message: "User applications fetched successfully",
+      applications,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
