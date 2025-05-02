@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/", getAllPosts);
 router.post("/create", createPost);
 router.post("/applys", applyToJob);
-router.get("/application", getUserApplications);
+router.get("/application/:userId", getUserApplications);
 
 
 // router.get('/:id', getPostById);
