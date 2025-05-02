@@ -110,9 +110,7 @@ export const getUserApplications = async (req, res, next) => {
       });
     }
     const userId = req.params.userId;
-    const applications = await Application.find({ user: userId }).populate(
-      "job"
-    );
+    const applications = await Application.find({ user: userId })
     res.status(200).json({
       success: true,
       message: "User applications fetched successfully",
