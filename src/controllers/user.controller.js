@@ -131,7 +131,7 @@ export const addUserResume = async (req, res, next) => {
 
 export const addUserExperience = async (req, res, next) => {
   try {
-    const { userId, title,company,years } = req.body;
+    const { userId, title, company, years } = req.body;
     if (!userId) {
       return res.status(400).json({
         success: false,
@@ -152,7 +152,7 @@ export const addUserExperience = async (req, res, next) => {
           experience: {
             title: title,
             company: company,
-            years:years,
+            years: years,
           },
         },
       },
@@ -172,7 +172,7 @@ export const addUserExperience = async (req, res, next) => {
 
 export const updateUserProfile = async (req, res, next) => {
   try {
-    const { userId, work, education, skill, cert, lang } = req.body;
+    const { userId, education, skill, cert, lang } = req.body;
 
     if (!userId) {
       return res.status(400).json({
@@ -181,7 +181,7 @@ export const updateUserProfile = async (req, res, next) => {
       });
     }
 
-    if (!work || !education || !skill || !cert || !lang) {
+    if (!education || !skill || !cert || !lang) {
       return res.status(400).json({
         success: false,
         message: "Missing required fields",
@@ -192,28 +192,17 @@ export const updateUserProfile = async (req, res, next) => {
       userId,
       {
         $set: {
-          experience: {
-            title: work.title,
-            company: work.company,
-            duration: work.duration,
-          },
           education: {
             degree: education.degree,
             institution: education.institution,
             year: education.year,
           },
-          skill: {
-            name: skill.name,
-            level: skill.level,
-          },
+          skill: skill,
           cert: {
             name: cert.name,
             org: cert.org,
           },
-          lang: {
-            name: lang.name,
-            level: lang.level,
-          },
+          lang: lang, // direct array of strings
         },
       },
       { new: true }
@@ -238,7 +227,7 @@ export const updateUserProfile = async (req, res, next) => {
 
 export const updateJobPreferences = async (req, res, next) => {
   try {
-    const { userId, jobPref } = req.body;
+    const { userId, jobTitle, minPay, jobTypes, workSchedule, relocation } = req.body;
 
     if (!userId) {
       return res.status(400).json({
@@ -247,7 +236,7 @@ export const updateJobPreferences = async (req, res, next) => {
       });
     }
 
-    if (!jobPref) {
+    if (!jobTitle || !minPay || !jobTypes || !workSchedule || !relocation) {
       return res.status(400).json({
         success: false,
         message: "Job preference fields are required",
@@ -259,11 +248,11 @@ export const updateJobPreferences = async (req, res, next) => {
       {
         $set: {
           jobPref: {
-            jobTitle: jobPref.jobTitle,
-            minPay: jobPref.minPay,
-            jobTypes: jobPref.jobTypes,
-            workSchedule: jobPref.workSchedule,
-            relocation: jobPref.relocation,
+            jobTitle: jobTitle,
+            minPay: minPay,
+            jobTypes: jobTypes,
+            workSchedule: workSchedule,
+            relocation: relocation,
           },
         },
       },
@@ -313,6 +302,7 @@ export const getAllUsers = async (req, res, next) => {
     next(error);
   }
 };
+
 
 export const getUserResume = async (req, res, next) => {
   try {

@@ -11,29 +11,11 @@ const EducationSchema = new mongoose.Schema(
   { _id: false }
 );
 
-// Skill Subschema
-const SkillSchema = new mongoose.Schema(
-  {
-    name: String,
-    level: String,
-  },
-  { _id: false }
-);
-
 // Certificate Subschema
 const CertificateSchema = new mongoose.Schema(
   {
     name: String,
     org: String,
-  },
-  { _id: false }
-);
-
-// Language Subschema
-const LanguageSchema = new mongoose.Schema(
-  {
-    name: String,
-    level: String,
   },
   { _id: false }
 );
@@ -85,9 +67,38 @@ const UserSchema = new mongoose.Schema(
     resume: ResumeSchema,
     experience: ExperienceSchema,
     education: EducationSchema,
-    skill: SkillSchema,
+    skill: [{type: String}],
     cert: CertificateSchema,
-    lang: LanguageSchema,
+    lang: [
+      {
+        type: String,
+        enum: [
+          "English",
+          "Assamese",
+          "Bengali",
+          "Bodo",
+          "Dogri",
+          "Gujarati",
+          "Hindi",
+          "Kannada",
+          "Kashmiri",
+          "Konkani",
+          "Maithili",
+          "Malayalam",
+          "Manipuri",
+          "Marathi",
+          "Nepali",
+          "Odia",
+          "Punjabi",
+          "Sanskrit",
+          "Santali",
+          "Sindhi",
+          "Tamil",
+          "Telugu",
+          "Urdu",
+        ],
+      },
+    ],
     jobPref: JobPrefSchema,
   },
   { timestamps: true }

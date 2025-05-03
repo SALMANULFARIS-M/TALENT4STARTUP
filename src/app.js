@@ -25,6 +25,7 @@ app.use(express.urlencoded({ limit: "20mb", extended: true }));
 app.use(helmet());
 app.use(morgan("dev"));
 
+
 // Routes
 app.use("/jobs", jobsRoutes);
 app.use("/auth", authRoutes);
