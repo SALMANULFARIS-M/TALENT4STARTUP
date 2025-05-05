@@ -8,6 +8,8 @@ import {
   updateUserProfile,
   updateJobPreferences,
   getUserResume,
+  getUserProfile,
+  getJobPreferences,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/upload.js";
 // import authMiddleware from '../middlewares/authMiddleware.js';
@@ -23,7 +25,9 @@ router.put("/user-detail", addUserDetails);
 router.put("/user-resume", upload.single("resume"), addUserResume);
 router.put("/user-experience", addUserExperience);
 router.put("/user-profile", updateUserProfile);
+router.get("/user-profile/:userId", getUserProfile);
 router.put("/user-job-pref", updateJobPreferences);
+router.get("/user-job-pref/:userId", getJobPreferences);
 router.get("/resume/:userId", getUserResume); //window.open(`https://talent4startup.onrender.com/resume/${user._id}`, "_blank");
 router.get("/:userId", getUserById);
 
