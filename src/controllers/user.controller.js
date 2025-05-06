@@ -228,7 +228,7 @@ export const updateUserQualification = async (req, res, next) => {
 
 export const getUserQualification = async (req, res, next) => {
   try {
-    const  userId  = req.params.userId; // or req.params if using route param
+    const userId = req.params.userId;
 
     if (!userId) {
       return res.status(400).json({
@@ -237,9 +237,7 @@ export const getUserQualification = async (req, res, next) => {
       });
     }
 
-    const user = await User.findById(userId).select(
-      "education skill cert lang"
-    );
+    const user = await User.findById(userId).select("qualification");
 
     if (!user) {
       return res.status(404).json({
@@ -250,12 +248,13 @@ export const getUserQualification = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data: user,
+      data: user.qualification,
     });
   } catch (error) {
     next(error);
   }
 };
+
 
 export const updateJobPreferences = async (req, res, next) => {
   try {
