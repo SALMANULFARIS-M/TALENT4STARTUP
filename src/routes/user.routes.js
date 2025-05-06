@@ -5,11 +5,11 @@ import {
   addUserResume,
   addUserExperience,
   getUserById,
-  updateUserProfile,
   updateJobPreferences,
   getUserResume,
-  getUserProfile,
   getJobPreferences,
+  updateUserQualification,
+  getUserQualification,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/upload.js";
 // import authMiddleware from '../middlewares/authMiddleware.js';
@@ -24,11 +24,11 @@ router.post("/user-experience", addUserExperience);
 router.put("/user-detail", addUserDetails);
 router.put("/user-resume", upload.single("resume"), addUserResume);
 router.put("/user-experience", addUserExperience);
-router.put("/user-profile", updateUserProfile);
-router.get("/user-profile/:userId", getUserProfile);
+router.put("/user-qualification", updateUserQualification);
+router.get("/user-qualification/:userId", getUserQualification);
 router.put("/user-job-pref", updateJobPreferences);
 router.get("/user-job-pref/:userId", getJobPreferences);
-router.get("/resume/:userId", getUserResume); //window.open(`https://talent4startup.onrender.com/resume/${user._id}`, "_blank");
+router.get("/resume/:userId", getUserResume); 
 router.get("/:userId", getUserById);
 
 // router.put('/:id',  updateUser);

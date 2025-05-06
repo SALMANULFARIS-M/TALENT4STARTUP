@@ -1,17 +1,16 @@
-// models/User.ts
 import mongoose from "mongoose";
 
-// Education Subschema
+// Single education entry
 const EducationSchema = new mongoose.Schema(
   {
     degree: String,
     institution: String,
     year: String,
   },
-  { _id: false }
+  { _id: false } 
 );
 
-// Certificate Subschema
+// Single certificate entry
 const CertificateSchema = new mongoose.Schema(
   {
     name: String,
@@ -20,6 +19,27 @@ const CertificateSchema = new mongoose.Schema(
   { _id: false }
 );
 
+// Qualification block (has its own _id)
+const QualificationSchema = new mongoose.Schema(
+  {
+    education: EducationSchema, 
+    cert: CertificateSchema,    
+    skill: [{ type: String }],
+    lang: [
+      {
+        type: String,
+        enum: [
+          "English", "Assamese", "Bengali", "Bodo", "Dogri", "Gujarati", "Hindi", "Kannada", "Kashmiri",
+          "Konkani", "Maithili", "Malayalam", "Manipuri", "Marathi", "Nepali", "Odia", "Punjabi", 
+          "Sanskrit", "Santali", "Sindhi", "Tamil", "Telugu", "Urdu",
+        ],
+      },
+    ],
+  },
+  { _id: true }
+);
+
+// Other subdocuments
 const ExperienceSchema = new mongoose.Schema(
   {
     title: String,
@@ -28,6 +48,7 @@ const ExperienceSchema = new mongoose.Schema(
   },
   { _id: false }
 );
+
 const JobPrefSchema = new mongoose.Schema(
   {
     jobTitle: String,
@@ -48,62 +69,29 @@ const ResumeSchema = new mongoose.Schema(
   { _id: false }
 );
 
+// Main User schema
 const UserSchema = new mongoose.Schema(
   {
-    firstName: { type: String },
-    lastName: { type: String },
+    firstName: String,
+    lastName: String,
     email: { type: String, required: true, unique: true },
-    workEmail: { type: String },
-    phone: { type: String },
-    password: { type: String },
+    workEmail: String,
+    phone: String,
+    password: String,
     role: {
       type: String,
       enum: ["Candidate", "Recruiter"],
       default: "Candidate",
     },
-    address: { type: String },
-    companyName: { type: String }, // optional for employers
-    // Embedded Documents (All optional)
+    address: String,
+    companyName: String,
     resume: ResumeSchema,
     experience: ExperienceSchema,
-    education: EducationSchema,
-    skill: [{type: String}],
-    cert: CertificateSchema,
-    lang: [
-      {
-        type: String,
-        enum: [
-          "English",
-          "Assamese",
-          "Bengali",
-          "Bodo",
-          "Dogri",
-          "Gujarati",
-          "Hindi",
-          "Kannada",
-          "Kashmiri",
-          "Konkani",
-          "Maithili",
-          "Malayalam",
-          "Manipuri",
-          "Marathi",
-          "Nepali",
-          "Odia",
-          "Punjabi",
-          "Sanskrit",
-          "Santali",
-          "Sindhi",
-          "Tamil",
-          "Telugu",
-          "Urdu",
-        ],
-      },
-    ],
     jobPref: JobPrefSchema,
+    qualification: QualificationSchema, 
   },
   { timestamps: true }
 );
 
 const User = mongoose.model("User", UserSchema);
-
 export default User;

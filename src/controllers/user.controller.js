@@ -170,7 +170,7 @@ export const addUserExperience = async (req, res, next) => {
   }
 };
 
-export const updateUserProfile = async (req, res, next) => {
+export const updateUserQualification = async (req, res, next) => {
   try {
     const { userId, education, skill, cert, lang } = req.body;
 
@@ -192,17 +192,17 @@ export const updateUserProfile = async (req, res, next) => {
       userId,
       {
         $set: {
-          education: {
+          "qualification.education": {
             degree: education.degree,
             institution: education.institution,
             year: education.year,
           },
-          skill: skill,
-          cert: {
+          "qualification.cert": {
             name: cert.name,
             org: cert.org,
           },
-          lang: lang, // direct array of strings
+          "qualification.skill": skill, 
+          "qualification.lang": lang,   
         },
       },
       { new: true }
@@ -225,7 +225,8 @@ export const updateUserProfile = async (req, res, next) => {
   }
 };
 
-export const getUserProfile = async (req, res, next) => {
+
+export const getUserQualification = async (req, res, next) => {
   try {
     const  userId  = req.params.userId; // or req.params if using route param
 
