@@ -76,6 +76,22 @@ export const getAllPosts = async (req, res, next) => {
   }
 };
 
+
+export const getJobsByRecruiter = async (req, res, next) => {
+  const { userId } = req.params; 
+  try {
+    const jobs = await Job.find({ recruiter: userId }).sort({ createdAt: -1 }); // most recent first (optional)
+    res.status(200).json({
+      success: true,
+      message: `Jobs posted by recruiter ${userId} fetched successfully`,
+      jobs,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 export const applyToJob = async (req, res, next) => {
   try {
     if (!req.body.userId || !req.body.jobId) {
