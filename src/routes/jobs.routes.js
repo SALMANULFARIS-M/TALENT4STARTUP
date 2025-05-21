@@ -5,6 +5,8 @@ import {
   applyToJob,
   getUserApplications,
   getJobsByRecruiter,
+  getApplicationsForRecruiter,
+  updateApplicationStatus,
 } from "../controllers/job.controller.js";
 
 const router = express.Router();
@@ -14,6 +16,8 @@ router.post("/create", createPost);
 router.post("/applys", applyToJob);
 router.get("/:userId", getJobsByRecruiter);
 router.get("/application/:userId", getUserApplications);
+router.get("/recruiter/:recruiterId", getApplicationsForRecruiter);
+router.get("/application/status/:applicationId", updateApplicationStatus);
 
 
 // router.get('/:id', getPostById);

@@ -225,7 +225,6 @@ export const updateUserQualification = async (req, res, next) => {
   }
 };
 
-
 export const getUserQualification = async (req, res, next) => {
   try {
     const userId = req.params.userId;
@@ -254,7 +253,6 @@ export const getUserQualification = async (req, res, next) => {
     next(error);
   }
 };
-
 
 export const updateJobPreferences = async (req, res, next) => {
   try {
@@ -336,7 +334,6 @@ export const getJobPreferences = async (req, res, next) => {
   }
 };
 
-
 export const getUserById = async (req, res, next) => {
   try {
     const userId = req.params.userId;
@@ -363,7 +360,6 @@ export const getAllUsers = async (req, res, next) => {
     next(error);
   }
 };
-
 
 export const getUserResume = async (req, res, next) => {
   try {
