@@ -147,8 +147,8 @@ export const getApplicationsForRecruiter = async (req, res) => {
 
     // Find applications for those jobs
     const applications = await Application.find({ job: { $in: jobIds } })
-      .populate("user", "firstName lastName email")
-      .populate("job", "jobTitle companyName");
+      .populate("user")
+      .populate("job");
 
     res.status(200).json({ applications });
   } catch (error) {
