@@ -17,7 +17,7 @@ router.post("/applys", applyToJob);
 router.get("/:userId", getJobsByRecruiter);
 router.get("/application/:userId", getUserApplications);
 router.get("/recruiter/:recruiterId", getApplicationsForRecruiter);
-router.get("/application/status/:applicationId", updateApplicationStatus);
+router.patch("/application/status/:applicationId", updateApplicationStatus);
 
 
 // router.get('/:id', getPostById);
